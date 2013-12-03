@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=427, initial-scale=1" />
+    </head>
+    <body>
+        <img src="data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAADUlEQVQI12NgYGBgAAAABQABXvMqOgAAAABJRU5ErkJggg==" id="view" style="position: absolute; left: 0px; top: 0px; max-width: 100%; max-height: 100%" />
+        <script type="text/javascript">
+            var x = new XMLHttpRequest();
+            var lastEnd = 0;
+            var delim = "===END==";
+            x.onreadystatechange = function(ev) {
+                if (x.readyState >= 3) {
+                    var txt = x.responseText.substring(lastEnd);
+                    var end = txt.indexOf(delim);
+                    if (end !== -1) {
+                        lastEnd += end + delim.length;
+                        document.getElementById("view").src = "data:;base64," + txt.substring(0, end);
+                    }
+                    if (x.readyState != 3) setTimeout(function() { x.send(); }, 1000);
+                }
+            };
+
+            setTimeout(function() {
+                x.open("GET", "data.php", true);
+                x.send();
+            }, 1000);
+        </script>
+    </body>
+</html>
