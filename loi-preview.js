@@ -20,17 +20,23 @@
  * PERFORMANCE OF THIS SOFTWARE.
  */
 
+// args
+var protocol = "http";
+if (process.argv[2]) {
+    protocol = process.argv[2];
+    if (protocol !== "https") protocol = "http";
+}
 var host = "localhost";
-if (process.argv[2])
-    host = process.argv[2];
-var path = "/quickimg";
 if (process.argv[3])
-    path = process.argv[3];
-var port = 80;
+    host = process.argv[3];
+var path = "/quickimg";
 if (process.argv[4])
-    port = +process.argv[4];
+    path = process.argv[4];
+var port = (protocol === "https") ? 443 : 80;
+if (process.argv[5])
+    port = +process.argv[5];
 
-var http = require("http");
+var http = require(protocol);
 var net = require("net");
 var querystring = require("querystring");
 
