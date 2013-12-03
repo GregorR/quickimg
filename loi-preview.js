@@ -54,7 +54,6 @@ var nextReq = null;
 
 // end the current response
 function endRes() {
-    console.log("Response ended");
     curRes = null;
     if (nextReq !== null) {
         nextReq();
